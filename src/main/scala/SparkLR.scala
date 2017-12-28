@@ -16,7 +16,7 @@ object SparkLR {
   val D = 10 // Number of dimensions
   val R = 0.7 // Scaling factor
   val ITERATIONS = 5
-  val rand = new Random(42)
+  val rand = new Random(420)
 
   case class DataPoint(x: Vector[Double], y: Double)
 
@@ -63,7 +63,7 @@ object SparkLR {
     for (i <- 1 to ITERATIONS) {
       println(s"On iteration $i")
       val gradient = points.map { p =>
-        p.x * (1 / (1 + exp(-p.y * (w.dot(p.x)))) - 1) * p.y
+        p.x * (1 / (1 + exp(-p.y * w.dot(p.x))) - 1) * p.y
       }.reduce(_ + _)
       w -= gradient
     }
